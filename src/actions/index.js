@@ -3,7 +3,8 @@ import {
   SET_EMAIL_ADDRESS,
   SET_PASSWORD,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAIL
+  LOGIN_USER_FAIL,
+  LOGIN_USER
 } from './types';
 
 export const setEmail = emailAddress => ({
@@ -18,6 +19,8 @@ export const setPassword = password => ({
 
 export const loginUser = ({ email, password }) => async dispatch => {
   try {
+
+    dispatch({ type: LOGIN_USER });
 
     const user = await firebase.auth().signInWithEmailAndPassword(email, password);
     loginUserSuccess(dispatch, user);

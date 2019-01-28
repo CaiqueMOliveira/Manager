@@ -6,7 +6,8 @@ import {
   Card,
   CardSection,
   Button,
-  TextField
+  TextField,
+  Spinner
 } from './';
 
 class LoginForm extends Component {
@@ -24,6 +25,20 @@ class LoginForm extends Component {
   handleButton = () => {
     const { loginUser, email, password } = this.props;
     loginUser({ email, password });
+  }
+
+  renderButtonOrSpinner = () => {
+    const { loading } = this.props;
+
+    if (loading) {
+      return <Spinner />
+    }
+
+    return (
+      <Button onPress={this.handleButton}>
+        Login
+      </Button>
+    );
   }
 
   renderError = () => {
@@ -65,9 +80,7 @@ class LoginForm extends Component {
         {this.renderError()}
 
         <CardSection>
-          <Button onPress={this.handleButton}>
-            Login
-          </Button>
+          {this.renderButtonOrSpinner()}
         </CardSection>
       </Card>
     );
@@ -88,7 +101,8 @@ const mapStateToProps = state => {
   return {
     email: auth.email,
     password: auth.password,
-    error: auth.error
+    error: auth.error,
+    loading: auth.loading
   }
 };
 

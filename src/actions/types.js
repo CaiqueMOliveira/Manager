@@ -2,3 +2,4 @@ export const SET_EMAIL_ADDRESS = 'SET_EMAIL_ADDRESS';
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
+export const LOGIN_USER = 'LOGIN_USER';
