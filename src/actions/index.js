@@ -2,7 +2,8 @@ import firebase from 'firebase';
 import {
   SET_EMAIL_ADDRESS,
   SET_PASSWORD,
-  LOGIN_USER_SUCCESS
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL
 } from './types';
 
 export const setEmail = emailAddress => ({
@@ -16,6 +17,29 @@ export const setPassword = password => ({
 });
 
 export const loginUser = ({ email, password }) => async dispatch => {
-  const user = await firebase.auth().signInWithEmailAndPassword(email, password);
-  dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
+  try {
+
+    const user = await firebase.auth().signInWithEmailAndPassword(email, password);
+    loginUserSuccess(dispatch, user);
+
+  } catch (error) {
+
+    try {
+
+      const createdUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      loginUserSuccess(dispatch, createdUser);
+
+    } catch (error) { loginUserFail(dispatch); }
+  }
+};
+
+const loginUserSuccess = (dispatch, user) => {
+  dispatch({
+    type: LOGIN_USER_SUCCESS,
+    payload: user
+  });
+};
+
+const loginUserFail = (dispatch) => {
+  dispatch({ type: LOGIN_USER_FAIL });
 };
