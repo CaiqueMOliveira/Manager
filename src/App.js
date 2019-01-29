@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './store';
 import { initializeFirebase } from './firebase';
-import LoginForm from './components/LoginForm';
+import Router from './Router';
 
 export default class App extends Component {
 
@@ -14,9 +13,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          <LoginForm />
-        </View>
+        <Router />
       </Provider>
     );
   }
