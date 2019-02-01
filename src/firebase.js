@@ -11,4 +11,16 @@ export const initializeFirebase = () => {
   };
 
   firebase.initializeApp(config);
-} 
+}
+
+export const insertNewEmployee = async ({ name, phone, shift, currentUserAuth }) => {
+  try {
+
+    await firebase.database().ref(`users/${currentUserAuth}/employees`)
+      .push({ name, phone, shift });
+
+    return true;
+
+  } catch (error) { return false; }
+};
+

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardSection, Button, TextField } from './';
 import { connect } from 'react-redux';
 import { Picker, Text, StyleSheet } from 'react-native';
-import { employeeUpdate } from '../actions';
+import { employeeUpdate, employeeCreate } from '../actions';
 
 const daysOfWeek = [
   'Monday',
@@ -29,6 +29,15 @@ class EmployeeCreate extends Component {
     employeeUpdate({
       prop: 'shift',
       value: shift
+    });
+  }
+
+  handleButton = () => {
+    const { name, phone, shift, employeeCreate } = this.props;
+    employeeCreate({
+      name,
+      phone,
+      shift: shift || 'Monday'
     });
   }
 
@@ -79,7 +88,7 @@ class EmployeeCreate extends Component {
         </CardSection>
 
         <CardSection>
-          <Button>
+          <Button onPress={this.handleButton}>
             Create
           </Button>
         </CardSection>
@@ -101,12 +110,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = store => {
   const { name, phone, shift } = store.employeeForm;
-  console.log('store :', store);
   return { name, phone, shift };
 };
 
 const actions = {
-  employeeUpdate
+  employeeUpdate,
+  employeeCreate
 };
 
 export default connect(mapStateToProps, actions)(EmployeeCreate);
