@@ -23,4 +23,3 @@ export const insertNewEmployee = async ({ name, phone, shift, currentUserAuth })
 
   } catch (error) { return false; }
 };
-
