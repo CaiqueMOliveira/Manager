@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Card, CardSection, Button, TextField } from './';
+import { Card, CardSection, Button } from './';
 import { connect } from 'react-redux';
-import { employeeCreate } from '../actions';
-import EmployeeFrom from './EmployeeForm';
+import { employeeCreate, cleanEmployeeForm } from '../actions';
+import EmployeeForm from './EmployeeForm';
 
 class EmployeeCreate extends Component {
+
+  componentWillMount() {
+    const { cleanEmployeeForm } = this.props;
+    cleanEmployeeForm();
+  }
 
   handleButton = () => {
     const { name, phone, shift, employeeCreate } = this.props;
@@ -18,7 +23,7 @@ class EmployeeCreate extends Component {
   render() {
     return (
       <Card>
-        <EmployeeFrom {...this.props} />
+        <EmployeeForm {...this.props} />
 
         <CardSection>
           <Button onPress={this.handleButton}>
@@ -36,7 +41,8 @@ const mapStateToProps = store => {
 };
 
 const actions = {
-  employeeCreate
+  employeeCreate,
+  cleanEmployeeForm
 };
 
 export default connect(mapStateToProps, actions)(EmployeeCreate);

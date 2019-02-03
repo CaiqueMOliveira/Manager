@@ -1,7 +1,9 @@
 import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
-  EMPLOYEE_SAVE_SUCCESS
+  EMPLOYEE_SAVE_SUCCESS,
+  EMPLOYEE_DELETE_SUCCESS,
+  CLEAN_EMPLOYEE_FORM
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -20,6 +22,12 @@ export default (state = INITIAL_STATE, action) => {
       return INITIAL_STATE;
 
     case EMPLOYEE_SAVE_SUCCESS:
+      return INITIAL_STATE;
+
+    case EMPLOYEE_DELETE_SUCCESS:
+      return INITIAL_STATE;
+
+    case CLEAN_EMPLOYEE_FORM:
       return INITIAL_STATE;
 
     default:

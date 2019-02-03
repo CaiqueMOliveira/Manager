@@ -4,13 +4,19 @@ import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
   EMPLOYEES_FETCH_SUCCESS,
-  EMPLOYEE_SAVE_SUCCESS
+  EMPLOYEE_SAVE_SUCCESS,
+  EMPLOYEE_DELETE_SUCCESS,
+  CLEAN_EMPLOYEE_FORM
 } from './types';
 import { Actions } from 'react-native-router-flux';
 
 export const employeeUpdate = ({ prop, value }) => ({
   type: EMPLOYEE_UPDATE,
   payload: { prop, value }
+});
+
+export const cleanEmployeeForm = () => ({
+  type: CLEAN_EMPLOYEE_FORM
 });
 
 export const employeeCreate = ({ name, phone, shift }) => async dispatch => {
@@ -36,6 +42,14 @@ export const employeeSave = ({ name, phone, shift, uid }) => async dispatch => {
   Actions.pop();
   dispatch({ type: EMPLOYEE_SAVE_SUCCESS });
 }
+
+export const employeeDelete = ({ uid }) => async dispatch => {
+  const { currentUser } = firebase.auth();
+  await firebase.database().ref(`users/${currentUser.uid}/employees/${uid}`)
+    .remove();
+  Actions.pop();
+  dispatch({ type: EMPLOYEE_DELETE_SUCCESS });
+};
 
 export const fetchEmployees = () => async dispatch => {
   const { currentUser } = firebase.auth();
